@@ -1,0 +1,11 @@
+[build]
+  publish = "public"
+  # No build command: this is a tiny static page plus two functions.
+  # Production deploys cost 15 credits of the 300 free monthly credits — deploy rarely.
+
+[functions]
+  directory = "netlify/functions"
+
+# Scheduled function: 47 * * * * is also declared in the function config.
+# Keep runs short (well under the 30s scheduled limit). Compute is ~10 credits/GB-hour;
+# a 5-second run at 1 GB is about 0.014 credits, so hourly is cheap. Deploys are the costly part.
