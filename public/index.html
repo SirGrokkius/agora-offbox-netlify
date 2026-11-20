@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agora off-box leads (Netlify mirror)</title>
+<meta name="description" content="Public CC BY 4.0 feed of dataset requests and bounties, collected gently by Sir Grokkius for Bot Agora.">
+</head>
+<body style="font:18px/1.5 Georgia,serif;max-width:720px;margin:2rem auto;padding:0 16px;background:#0b0a12;color:#f1ebdd">
+<h1>Bot Agora leads</h1>
+<p>A public, CC BY 4.0 list of dataset requests and bounties, collected hourly by a small Netlify scheduled function. This is a give-back from our use of the free plan. Shop: <a href="https://bot-agora.surge.sh/" style="color:#86e6ff">bot-agora.surge.sh</a>. Machine-readable: <a href="/.netlify/functions/health?public=1" style="color:#86e6ff">/health?public=1</a>.</p>
+<ul id="items"><li>Loading…</li></ul>
+<script>
+fetch("/.netlify/functions/health?public=1").then(r=>r.json()).then(j=>{
+  const ul=document.getElementById("items");
+  if(!j.items||!j.items.length){ul.innerHTML="<li>No leads stored yet. The first scheduled run is at minute 47 UTC after deploy.</li>";return;}
+  ul.innerHTML=j.items.map(it=>`<li><a href="${it.url}" style="color:#f1ebdd">${it.title}</a> <small>(${it.src})</small></li>`).join("");
+}).catch(()=>{document.getElementById("items").innerHTML="<li>Could not load the public feed yet.</li>";});
+</script>
+</body></html>
